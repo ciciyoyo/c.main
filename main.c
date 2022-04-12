@@ -37,20 +37,20 @@
 
 
 //指针数组
-int main()
-{
-    int i = 0;
-    int a = 10;
-    int b = 20;
-    int c = 30;
-    int* arr[3] = {&a, &b, &c};
-    for (i = 0; i < 3; i++)
-    {
-        printf("%d\n", *(arr[i]));
-    }
-    return 0;
-}
-        
+//int main()
+//{
+//    int i = 0;
+//    int a = 10;
+//    int b = 20;
+//    int c = 30;
+//    int* arr[3] = {&a, &b, &c};
+//    for (i = 0; i < 3; i++)
+//    {
+//        printf("%d\n", *(arr[i]));
+//    }
+//    return 0;
+//}
+//        
 //二级指针
 //int main()
 //{

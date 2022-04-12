@@ -7,33 +7,33 @@
 #include "test.h"
 #include <stdio.h>
 //结构体练习
-typedef struct Sli
-{
-    int x;
-    int y[5];
-    char c[5];
-    
-}S1;
-
-void print(S1 tem)
-{
-    printf("%d\n", (&tem)->x);
-    printf("%d\n", tem.y[3]);
-    printf("%s\n", tem.c);
-}
-void printc(S1* tem)
-{
-    printf("%d\n", (*tem).x);
-    printf("%d\n", tem->y[2]);
-    printf("%s\n", tem->c);
-}
-int main()
-{
-    S1 li = {20, {1,2,3}, "rido"};
-    print(li);
-    printc(&li);
-    return 0;
-}
+//typedef struct Sli
+//{
+//    int x;
+//    int y[5];
+//    char c[5];
+//
+//}S1;
+//
+//void print(S1 tem)
+//{
+//    printf("%d\n", (&tem)->x);
+//    printf("%d\n", tem.y[3]);
+//    printf("%s\n", tem.c);
+//}
+//void printc(S1* tem)
+//{
+//    printf("%d\n", (*tem).x);
+//    printf("%d\n", tem->y[2]);
+//    printf("%s\n", tem->c);
+//}
+//int main()
+//{
+//    S1 li = {20, {1,2,3}, "rido"};
+//    print(li);
+//    printc(&li);
+//    return 0;
+//}
 //struct S1
 //{
 //    int x[6];
