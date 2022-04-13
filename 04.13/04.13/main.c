@@ -56,9 +56,9 @@
 unsigned char i = 0;
 int main()
 {
-    for (i = 0; i <255; i++)
+    for (i = 0; i <=255; i++)//i永远不会大于255
     {
-        printf("hello rido%d\n",i);
+        printf("hello rido%d\n",i);//死循环
     }
     
     return 0;
