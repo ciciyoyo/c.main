@@ -36,21 +36,36 @@
 
 //回调函数
 //就是通过函数指针调用的函数，如果你把函数的指针（地址）作为参数传递给另一个函数，当这个指针被用来调用其所指向函数时，我们就说这是回调函数。会调函数不是由该函数的实现方直接调用，而是在特定的时间内或条件发生时由另外一方调用的，用于该事件或条件进行响应
-void print(char * str)
-{
-    printf("rido:%s\n",str);
-}
-//void test(void p(char*))//这里使用变量接受函数
+//void print(char * str)
 //{
-//    p("asd");
+//    printf("rido:%s\n",str);
 //}
-void test(void (*p)(char*))//这里使用指针接受函数
-{
-    (*p)("asd");//回调函数
-}
+////void test(void p(char*))//这里使用变量接受函数
+////{
+////    p("asd");
+////}
+//void test(void (*p)(char*))//这里使用指针接受函数
+//{
+//    (*p)("asd");//回调函数
+//}
+//int main()
+//{
+////    char str[10] = "is good man";
+//    test(print);
+//    return 0;
+//}
+//万能指针 void*
+//void*可以接受任意类型的地址
+//void*对它解引用会报错，因为电脑不知道要访问几个字节
+//p++ 以为是不可以的，因为电脑不知道一次加加跳过几个字节
+//可以用强制类型转换对其解引用操作
 int main()
 {
-//    char str[10] = "is good man";
-    test(print);
+    int a = 10;
+    void* p = &a;
+//    *p = 20;//Incomplete type 'void' is not assignable
+    *(int*)p = 20;
+//    void(*(*b))() = (void(*)())0;
+    printf("%d",a);
     return 0;
 }
