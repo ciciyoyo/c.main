@@ -94,8 +94,8 @@ int main() {
     //用%s打印会从当前地址向后找直到找\0停止
     //++相当于+= 所以++后值会变
     printf("%s\n", **++cpp);//point
-    printf("%s\n", *--*++cpp + 3);//ew
-    printf("%s\n", *cpp[-2] + 3);//s t
+    printf("%s\n", *--*++cpp + 3);//er
+    printf("%s\n", *cpp[-2] + 3);//st
     printf("%s\n", cpp[-1][-1] +1);//ew
     return 0;
 }

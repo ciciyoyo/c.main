@@ -717,9 +717,6 @@
 //    return 0;
 //}
 
-
-
-
 //课题1/1-1/2+3/1.....
 //int main()
 //{
@@ -892,3 +889,28 @@
 //
 //    return 0;
 //}
+//水仙花数(自幂数)求0-100000之间的所有水仙花数打印输出
+int main() {
+    int i;
+    for (i = 0; i < 100000; i++) {
+        int n = 1;
+        int tmp = i;
+        int sum = 0;
+        //求出几位数
+        while (tmp /= 10 ) {
+            n++;
+            }
+        //求出每一位n次方之和
+        
+        tmp = i;
+        while(tmp) {
+            sum += pow(tmp%10, n);
+            tmp/=10;
+        }
+        if (i == sum) {
+            printf("%d\n",i);
+        }
+        //比较
+    }
+    return 0;
+}
