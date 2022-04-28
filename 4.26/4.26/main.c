@@ -253,11 +253,19 @@
 //    }
 //    return 0;
 //}
-//memcmp(void1*，void2*，num)内存比较num是个数，如果1*>2*返回大于1
+//memcmp(void1*，void2*，num)内存比较num是字节个数，如果1*>2*返回大于1
+//int main() {
+//    int arr1[] = {1, 2, 3, 4, 5};
+//    int arr2[] = {1, 2, 5, 4, 3};
+//    int ret = memcmp(arr1, arr2, 10);
+//    printf("%d", ret);
+//    return 0;
+//}
+
+//memset()内存设置,将内存以某个字符填充n个字符
 int main() {
-    int arr1[] = {1, 2, 3, 4, 5};
-    int arr2[] = {1, 2, 5, 4, 3};
-    int ret = memcmp(arr1, arr2, 10);
-    printf("%d", ret);
+    char arr[10] = "";
+    memset(arr, 'r', 10);
+    printf("%s\n", arr);
     return 0;
 }
