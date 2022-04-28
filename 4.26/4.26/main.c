@@ -178,13 +178,86 @@
 //isgraph    任何图形字符
 //isprint    任何可打印字符，包括图形字符和空白字符
 //字符转换 tolower(int c); toupper(int c)
-int main() {
-    char ch = 'w';
-    int ret = islower(ch);
-    printf("%d\n", ret);
-    char a = toupper(ch);
-    printf("%c\n",a);
-    return 0;
-}
+//int main() {
+//    char ch = 'w';
+//    int ret = islower(ch);
+//    printf("%d\n", ret);
+//    char a = toupper(ch);
+//    printf("%c\n",a);
+//    return 0;
+//}
 
 //七、内存操作函数。memcpy memmove memset memcmp
+//memcpy(void*， void*， num)内存拷贝num单位是字节
+//库实现方法，对内存重叠的数据会出问题
+//void* my_memcpy(void* des, const void* src, int n) {
+//    void* ret = des;
+//    while(n--) {
+//        *(char*)des = *(char*)src;
+//        des = (char*)des +1;
+//        src = (char*)src +1;
+//    }
+//    return ret;
+//}
+//void* my_memcpy(void* des, const void* src, int n) {
+//    void* ret = des;
+//    while(n--) {
+//        *(char*)des = *(char*)src;
+//        des = (char*)des +1;
+//        src = (char*)src +1;
+//    }
+//    return ret;
+//}
+//int main() {
+//    int i;
+//    int arr1[] = {1, 2, 3, 4, 5,6,7,8,9,10};
+//    int arr2[5] = {0};
+//    memcpy(arr2, arr1, 16);
+//    struct s arr3[3]={{"rido",12},{"yangyang",13},{"riko", 5}};
+//    struct s arr4[3];
+//    memcpy(arr1+2, arr1, 20);
+//    for (i = 0; i< 10; i++) {
+//        printf("%d\n", arr1[i]);
+//    }
+//    return 0;
+//}
+//memmove()也是内存拷贝 但是它可以对内存重叠的数据处理
+//库函数实现方法
+//void* my_memmove(void* des, const void* src, int n) {
+//    void* ret = des;
+//    if(des < src){
+//        //前->后
+//        while(n--) {
+//            *(char*)des = *(char*)src;
+//            des = (char*)des +1;
+//            src = (char*)src +1;
+//        }
+//    }
+//    else
+//    {
+//        //后->前
+//        while(n--) {
+//            //n刚进来就是19
+//        *((char*)des+n) = *((char*)src+n);
+//        }
+//    }
+//        return ret;
+//}
+//int main() {
+//    int i;
+//    int arr1[] = {1, 2, 3, 4, 5,6,7,8,9,10};
+//    my_memmove(arr1, arr1+2, 20);
+//
+//    for (i = 0; i< 10; i++) {
+//        printf("%d\n", arr1[i]);
+//    }
+//    return 0;
+//}
+//memcmp(void1*，void2*，num)内存比较num是个数，如果1*>2*返回大于1
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {1, 2, 5, 4, 3};
+    int ret = memcmp(arr1, arr2, 10);
+    printf("%d", ret);
+    return 0;
+}
