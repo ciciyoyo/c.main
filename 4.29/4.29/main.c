@@ -81,18 +81,18 @@
 //};
 
 //修改默认对齐数#pragma pack(4)
-//offsetof(结构体类型名,成员名)不是函数是宏需要引用头文件<seddef.h>
+//offsetof(结构体类型名,成员名)不是函数是宏需要引用头文件<stddef.h>
 //用来计算结构体成员相对于结构体起始位置的偏移量
-#pragma pack(4)//设置默认对齐数是4
-struct S1
-{
-    char a;
-    double b;
-};
-#pragma pack()//取消对默认的设置
-
-
-int main(int argc, const char * argv[]) {
+//#pragma pack(4)//设置默认对齐数是4
+//struct S1
+//{
+//    char a;
+//    double b;
+//};
+//#pragma pack()//取消对默认的设置
+//
+//
+//int main(int argc, const char * argv[]) {
     //step 5
 //    struct S1 s1 = {0};
 //    printf("%lu\n",offsetof(struct S1, b));
@@ -106,5 +106,41 @@ int main(int argc, const char * argv[]) {
 //    char arr[5] = "rido";
 //    n1.data = 33;
 //    printf("%d\n", n1.data);
+//    return 0;
+//}
+
+//结构体传参
+struct S
+{
+    char c;
+    int i;
+    double d;
+//    char arr[10];
+//    int arr1[10];
+};
+#pragma pcak(4)
+void Init(struct S* s)//传址操作给结构体变量初始化
+{
+    (*s).c = 'r';
+    s->i = 33;
+    s->d = 3.14;
+}
+#pragma pack()
+void print(struct S s)//传值操作不会改变源内容
+{
+    s.i  = 18;
+    printf("%c %d %lf\n", s.c, s.i, s.d);
+}
+int main() {
+    struct S s1 = {0};
+    Init(&s1);//因为是结构体变量名所以要&
+//    s1.c = 'r';
+//    s1.i = 20;
+//    s1.d = 3.14;
+//    s1.arr = "rido";
+    print(s1);
+    printf("%d\n", s1.i);
+    printf("%lu\n", offsetof(struct S, i));
+    printf("%lu\n", sizeof(s1));
     return 0;
 }
