@@ -10,6 +10,12 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <limits.h>
+//c/c++程序内存分配的几个区域
+    //栈区（stack);在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时，这些存储单元自动被释放，栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限，栈区主要存放运行函数而分配的局部变量。函数参数，返回数据，返回地址等
+    //堆区（heap）一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统）回收，分配方式类似于链表
+    //数据段(静态区)(static)存放全局变量，静态数据。程序结束后由系统释放
+    //代码段：存放函数体（类成员函数和全局函数的）的二进制代码，常量字符串也是放到这里面的
+
 //一、动态内存管理malloc free callor realloc 需要引头文件stdlib.h
 //栈区存放：局部变量，局部数组，函数的形参，
 //堆区存放：动态内存分配 malloc  free  callor  realloc
@@ -184,3 +190,107 @@
 //    test5();
 //    return 0;
 //}
+
+//栈，堆， 静态区问题
+//指针变量进行值传递，实参赋值给形参，会在栈区申请一个局部的指针变量，和外面实参是两个变量
+//void getmemory(char *p)
+//{
+//     p =(char *) malloc(100);
+//      strcpy(p, "hello world");
+//}
+//int main()
+//{
+//    char *str= NULL;
+//     getmemory(str);
+//     printf("%s",str);  //一直未NULL，多次调用会造成内存空间泄漏，无法释放
+//     free(str);
+//     return 0;
+//}
+
+//返回栈空间地址问题
+//char * get(void)
+//{
+//    char p[] = "rido";//栈区开辟的数组，出了函数就会被销毁
+//    return p;
+//}
+//void test(void)
+//{
+//    char * p = NULL;
+//    p = get();//此时p所指向的空间是什么不确定（非法访问内存）野指针
+//    printf(p);
+//}
+//static修饰的局部变量变成了静态区的了
+//int * test()
+//{
+//    static int a= 10;//静态区的开辟的，程序结束才会销毁
+//    return &a;
+//}
+//int main()
+//{
+//    int* ptr = test();
+//    *ptr += 20;
+//    printf("%d",*ptr);
+//    return 0;
+//}
+
+//int * test()
+//{
+//堆区开辟的没有free空间还在，ptr变量会在函数结束销毁之前，返回地址
+//    int* ptr = malloc(100);
+//    return ptr;
+//}
+//int main()
+//{
+//    int* ptr = test();
+//    *ptr = 20;
+//    printf("%d",ptr[0]);
+//    free(ptr);
+//    ptr = NULL;
+//    return 0;
+//}
+
+//int * f2(void)
+//{
+//    int *ptr;//指针未初始化是随机值
+//    *ptr = 20;//改变随机地址会出问题（野指针）
+//    return ptr;
+//}
+void test(void)
+{
+    char *str = (char*)malloc(100);//在堆区开辟100个字节
+    strcpy(str, "ridoisil");//把字符串拷贝到里面
+    free(str);//释放这块空间此时str此时通过str还是可以找到(野指针）
+    if (str != NULL)
+    {
+//        strcpy(str, "hello");//强行找地址把ridoisli覆盖掉
+        printf("%s\n", str);
+    }
+}
+int main()
+{
+    test();
+    return 0;
+}
+
+
+//void test(char * i)
+//{
+//    printf("%s\n", i);
+////    printf("%s", i);
+////    *i = 'w';
+////    printf("%s\n", i);
+//
+//}
+//int main()
+//{
+////    char* p =NULL;
+////    test(p);
+//    char p[5] = "hell";
+//    printf(p);
+//    printf("%p\n", p);
+////    *c = 'w';
+////    c = "rido";
+//    printf("%s\n", c);
+//    return 0;
+//}
+
