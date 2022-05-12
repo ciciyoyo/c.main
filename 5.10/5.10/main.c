@@ -56,7 +56,6 @@
 //“wb+”（读写） 为了读和写，建立一个新的文件           建立一个新文件
 //“ab+”（读写） 打开一个二进制文件在文件尾进行读和写    建立一个新文件
 
-
     //7.文件的顺序读写
 //   功能                 函数名                   适用于
 //字符输入函数             fgetc                  所有输入流
@@ -70,7 +69,8 @@
 //
 //键盘&屏幕 标准输入输出设备  是一个程序默认打开的两个流设备
 //只要程序运行，就会默认打开三个流：stdin、stdout、stderr（都是FILE*类型）
-//键盘&屏幕流输入输出
+
+//键盘&屏幕流输入输出get(目标地址) put(目标地址)
 //int main()
 //{
 //    char arr[1024]= {0};
@@ -84,7 +84,7 @@
 //    return 0;
 //}
 
-//写入文件fputs()fputs()
+//写入文件fputs(字符串, 流)fputc(字符, 流)
 //int main(int argc, const char * argv[]) {
 //    //打开文件
 //    FILE* fwrite =fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "w");//打开失败返回NULL指针
@@ -102,7 +102,7 @@
 //    return 0;
 //}
 
-//读取文件fgets()fgetc()
+//读取文件fgets(字符串, 流)fgetc(字符,流)
 //int main()
 //{
 //    FILE* fread = fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "r");
@@ -124,14 +124,14 @@
 //    return 0;
 //}
 
-//格式化写入文件fprintf（）（可以写所有类型的数据）
-typedef struct Stu
-{
-    char name[20];
-    int age;
-    float fen;
-
-}Stu;
+//格式化写入文件fprintf（流，剩下的根printf一样）（可以写所有类型的数据）
+//typedef struct Stu
+//{
+//    char name[20];
+//    int age;
+//    float fen;
+//
+//}Stu;
 //int main()
 //{
 //    FILE* fp =  fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "w");
@@ -145,18 +145,141 @@ typedef struct Stu
 //    fp = NULL;
 //    return 0;
 //}
-//格式化读取文件fscanf（）(按照某一种格式）
+
+//格式化读取文件fscanf(流，剩下的根scanf一样)(按照某一种格式）
+//int main()
+//{
+//    FILE * pf = fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt","r");
+//    if (pf== NULL)
+//    {
+//        printf("%s", strerror(errno));
+//    }
+//    Stu s2 = {0};
+//    Stu *sp = &s2;
+//    fscanf(pf, "%s %d %f",sp->name, &(sp->age), &(sp->fen));
+//    printf("%s,%d,%.2f", sp->name,sp->age,sp->fen);
+//    fclose(pf);
+//    pf = NULL;
+//    return 0;
+//}
+
+//对比一组函数
+//scanf/fscanf/sscanf
+//printf/fprintf/sprinf
+//printf/scanf :是针对标准输入输出流格式化输入输出语句
+//fscanf/fprintf :是针对所有输入输出流的格式化输入输出语句
+//sscanf/sprintf :sscanf是从字符串中读取格式化的数据
+//               :sprintf是把格式化的数据输出成字符串（存储到字符串中）
+//
+//案例：sprintf(目标地址, 剩下的根printf一样)sscanf()
+//typedef struct Stu
+//{
+//    char name[20];
+//    int age;
+//    float score;
+//}Stu;
+//int main()
+//{
+//    Stu s1 = {"rido", 32, 88.88f};
+//    Stu s2 = {0};
+//    char arr[50];
+//    sprintf(arr, "%s, %d, %f",s1.name,s1.age,s1.score);
+//    printf("%s\n", arr);
+//    sscanf(arr, "%s %d %f", s2.name, &(s2.age), &(s2.score));
+//    printf("%s\n%d\n%f", s2.name,s2.age,s2.score);
+//    return 0;
+//}
+
+//二进制读写fread(目标地址,文件大小,几个,文件指针) fwrite()
+//typedef struct Stu /
+//二进制写入
+//int main()
+//{
+//   FILE* fp =  fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "wb");
+//    Stu s1 = {"李冬", 32, 88.88};
+//    if(fp ==NULL)
+//    {
+//        printf("%s", strerror(errno));
+//    }
+//    fwrite(&s1, sizeof(Stu), 1, fp);
+//    fclose(fp);
+//    fp = NULL;
+//    return 0;
+//}
+//二进制读取
+//int main()
+//{
+//    FILE* fp =  fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "rb");
+//    Stu s2 = {0};
+//    if(fp ==NULL)
+//    {
+//        printf("%s", strerror(errno));
+//    }
+//   fread(&s2, sizeof(Stu), 1, fp);
+//    printf("%s, %d, %f", s2.name,s2.age, s2.score);
+//    fclose(fp);
+//    fp = NULL;
+//    return 0;
+//}
+
+    //8.文件的随机读取
+//    fseek(文件指针, 偏移量,文件指针的当前位置,)
+//    ftell(文件指针) 返回文件指针相对于起始位置的偏移量
+//    rewind(文件指针)  让文件指针的位置回到文件的起始位置
+//根据文件指针的位置和偏移量来定位文件指针。
+//int main()
+//{
+//    FILE* fp = fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "r");
+//    if (fp == NULL)
+//    {
+//        printf("%s", strerror(errno));
+//    }
+//    fseek(fp, 2, SEEK_CUR);
+//    printf("%c\n",fgetc(fp));
+//    printf("%c\n",fgetc(fp));
+//    long a = ftell(fp);//读取一次之后文件指针就会变化
+//    printf("%lu\n", a);
+//    rewind(fp);//使文件指针回到起始位置
+//    printf("%c\n",fgetc(fp));
+//    fclose(fp);
+//    fp = NULL;
+//    return 0;
+//}
+
+//文件结束的判定
+    //feof()  文件结束判定（判断文件结束的原因）
+    //ferror()  测试给定流的错误标识符
+    //牢记：在文件读取过程中，不能用feof函数的返回值直接判断文件是否结束。而是应用于当文件读取结束的时候，判断读取失败结束，还是遇到文件尾结束
+        //例
+        //1.文本文件读取是否结束，判断返回值是否为EOF (fgetc),或者NULL（fgets）
+            
+            //。fgetc判断是否为EOF
+            //。fgets判断返回值是否为NULL
+        //2.二进制文件的读取结束判断，判断返回值是否小于实际要读的个数
+            //。fread判断返回值是否小于实际要读的个数
 int main()
 {
-    FILE * pf = fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt","r");
-    if (pf== NULL)
+    FILE* pf =  fopen("/Users/lidong/Desktop/demo/5.10/5.10/test.txt", "r");
+    if (pf == NULL)
     {
-        printf("%s", strerror(errno));
+        perror("打开文件出错");//会打印输入的字符串和错误信息
+        return 0;
     }
-    Stu s2 = {0};
-    Stu *sp = &s2;
-    fscanf(pf, "%s %d %f",sp->name, &(sp->age), &(sp->fen));
-    printf("%s,%d,%.2f", sp->name,sp->age,sp->fen);
+//    printf("%d", fgetc(pf));返回EOF(end of file)文件结束标示-1
+    int c;
+    while((c=fgetc(pf)) != EOF)
+    {
+        putchar(c);
+    }
+    if (feof(pf))//如果是以EOF结束返回非0数字
+    {
+        printf("文件结束");
+    }
+    else if (ferror(pf))
+    {
+        printf("文件读取错误");
+    }
+    //ferror，函数名，在调用各种输入输出函数（如 putc.getc.fread.fwrite等）时，如果出现错误，除了函数返回值有所反映外，还可以用ferror函数检查。 它的一般调用形式为 ferror(fp)；如果ferror返回值为0（假），表示未出错。如果返回一个非零值，表示出错。应该注意，对同一个文件 每一次调用输入输出函数，均产生一个新的ferror函 数值，因此，应当在调用一个输入输出函数后立即检 查ferror函数的值，否则信息会丢失。在执行fopen函数时，ferror函数的初始值自动置为0。
     fclose(pf);
     pf = NULL;
     return 0;
