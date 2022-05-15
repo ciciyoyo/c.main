@@ -5,8 +5,8 @@
 //  Created by Rido on 2022/5/12.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "Add.h"
+#include <stddef.h>
 //c语言预处理
 //一.在ANSI C的任何一种实现中，存在两个不同的环境
   //1.翻译环境,在这个环境中的源代码被转换为可执行的机器指令
@@ -57,9 +57,9 @@
 #define STR "hehe"//所有类型数据
 #define reg refister //为register关键字创建一个简短的名字
 #define do_forever for(;;)//用更形象的符号来替换一种实现
-#define CASE break; case//在写case语句的时候自动把break加上
+#define CASE break; case//写case语句的时候自动把break加上
 //如果定义的stuff过长，可以分成几行写，除了最后一行外，每行的后面都讲一个反斜杠（换行符）
-#define DEBUG_PRINT printf("file:%s\tline:%d\t                             date:%s/ttime:%s\n", \
+//#define DEBUG_PRINT printf("file:%s\tline:%d\t                             date:%s/ttime:%s\n", \
                            __FILE__,__LINE__,\
                            __DATE__,__TIME__)
 //int main()
@@ -189,7 +189,7 @@
 //    }
 //    return 0;
 //}
-    //条件编译
+    //条件编译指令
         //在编译一个程序的时候我们如果要将一条语句（一组语句）编译或者放弃是很方便的因为我们有条件编译指令 比如说：
             //调试性的代码，删除可惜，保留又碍事，所以我门可以选择性编译
     //常见的条件编译指令：
@@ -217,29 +217,91 @@
             //if !defined(symbol)
             //ifndef symbol
 
-    
 #define DBUG //只要定义可就行，可以不给值
-int main()
-{
-    int arr[10] = {1,2,3,4,5,6,7,8,9,0};
-    int i;
-    for (i= 0; i < 10; i++)
-    {
-        arr[i] = 0;
-#if 1==11//条件表达式为真执行，假则反之
-        printf("haha");
-#elif 1==1
-        printf("hehe\n");
-#else
-        printf("rido")
-//#ifdef DBUG //如果DBUG定义过就执行下面代码 否则不执行
-        printf("%d\n", arr[i]);//预处理的时直接干掉了
-#endif//根ifdef是一对，是用来结束iddef的
-    }
-    printf("%d\n",DEBUG);
-    return 0;
-}
-//十.预处理指令#include
+//int main()
+//{
+//    int arr[10] = {1,2,3,4,5,6,7,8,9,0};
+//    int i;
+//    for (i= 0; i < 10; i++)
+//    {
+//        arr[i] = 0;
+//#if 1==11//条件表达式为真执行，假则反之
+//        printf("haha");
+//#elif 1==1
+//        printf("hehe\n");
+//#else
+//        printf("rido")
+////#ifdef DBUG //如果DBUG定义过就执行下面代码 否则不执行
+//        printf("%d\n", arr[i]);//预处理的时直接干掉了
+//#endif//根ifdef是一对，是用来结束iddef的
+//    }
+//    printf("%d\n",DEBUG);
+//    return 0;
+//}
+    //嵌套定义
+#define OS_UNIX 0
+#define OPTION2 0
+//int main()
+//{
+//#if defined(OS_UNIX)
+//    #ifdef OPTION
+////    unix_version_option1();
+//    printf("unix1");
+//    #endif
+//    #ifdef OPTION2
+////    unix_bersion_option2()
+//    printf("unix2");
+//    #endif
+//#elif defined(OS_MSDOS)
+//    #ifdef OPTION2
+////    modos_version_option2();
+//    printf("macox");
+//    #endif
+//#endif
+//}
+//十.预处理指令（文件包含）#include
+    //我们已经知道#include 指令可以使另外一个文件被编译。就像它实际出现于#include指令的地方一样
+    //这种替换的方式很简单：预处理器先删除这条指令，并用包含文件的内容替换，这样一个源文件被包含10次，那就实际被编译10次
+    //本地文件包含
+    //#include “filename”
+    //查找策略：先在源文件所在目录下查找，如果没有，编译器就像查找库函数头文件一样在标准位置查找头文件。如果找不到就提示编译错误，linux环境的标准头文件路径 /usr/include
+    //库文件包含
+        //#include <filename>
+        //查找头文件直接取标准路径下取查找，如果找不到就提示编译错误
+    //位了防止头文件被重复引用 每个头文件的开头写
+        //#ifndef __TEST_H__
+        //#define __TEST_H__
+        //#endid __TEST_H__
+    //或者
+        //#pragma once
+    //其他预处理指令
+        //#error
+        //#pragma
+        //#line
+//int main()
+//{
+//    printf("asdf");
+//    int a = 10;
+//    int b = 22;
+//    int ret = add(a,b);
+//    printf("%d", ret);
+//    return 0;
+//}
+
 //十一.预处理指令#undef
 //十二.条件编译
 
+//自己实现一个ofsetof宏。需要引用头文件 stddef.h
+#define OFF(S, N) &(((S*)0)->N)
+struct S
+{
+    char c;
+    int i;
+    double b;
+};
+int main()
+{
+    struct S s = {'r', 32, 3.14f};
+    printf("%p", OFF(struct S, b));
+    return 0;
+}
