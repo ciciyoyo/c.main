@@ -28,6 +28,7 @@
 		DD4E5913282FCDCC00E0D74D /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		DD4E591A282FCE7300E0D74D /* contact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = contact.h; sourceTree = "<group>"; };
 		DD4E591B282FCE7300E0D74D /* contact.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = contact.c; sourceTree = "<group>"; };
+		DDBD8AC628313BE700D8E5FF /* contact.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = contact.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 				DD4E5913282FCDCC00E0D74D /* main.c */,
 				DD4E591A282FCE7300E0D74D /* contact.h */,
 				DD4E591B282FCE7300E0D74D /* contact.c */,
+				DDBD8AC628313BE700D8E5FF /* contact.txt */,
 			);
 			path = contact;
 			sourceTree = "<group>";

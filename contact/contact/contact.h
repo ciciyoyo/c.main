@@ -50,6 +50,8 @@ void Init(Contact*);//初始化
 void Add(Contact*);//增加
 void Search(Contact*);//查看
 void Del(Contact*);//删除
-
+void Mod(Contact*);//修改
+void Save(Contact*);//保存
+void loadContact(Contact*);//加载
 
 #endif /* contact_h */

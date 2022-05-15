@@ -17,6 +17,8 @@ int main(int argc, const char * argv[]) {
         scanf("%d", &input);
         switch (input) {
             CASE eit:
+                free(con.lst);
+                con.lst = NULL;
                 printf("程序退出\n");
             CASE add:
                 Add(&con);
@@ -25,11 +27,13 @@ int main(int argc, const char * argv[]) {
             CASE del:
                 Del(&con);
             CASE mod:
-                printf("hehe3\n");
+                Mod(&con);
             CASE save:
-                printf("hehe5\n");
+                Save(&con);
+                break;
             default:
                 printf("你输入有误请重新输入\n");
+                break;
         }
     }while (input);
     return 0;
