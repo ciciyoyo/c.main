@@ -499,20 +499,19 @@
 //}
 
 //二分查找函数
-//int get_er(int* a, int x, int l)
+//int get_er(int* num, int target, int len)
 //{
 //    int left = 0;
-//    int right = l/sizeof(a[0])-1;
-////    printf("%p\n", a[]);
-//    while(left<right)
+//    int right = len-1;
+//    while(left<=right)
 //    {
-//        int mid = (left +right)/2;
-//        if(a[mid]<x)
-//            left = mid+1;
-//        else if(a[mid]>x)
-//            right = mid-1;
+//        int tmp = (left + right)/2;
+//        if(num[tmp]<x)
+//            left = tmp+1;
+//        else if(num[tmp]>x)
+//            right = tmp-1;
 //        else
-//            return mid;
+//            return tmp;
 //    }
 //    return -1;
 //}
@@ -520,7 +519,7 @@
 //{
 //    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 //    int num;
-//    int length = sizeof(arr);
+//    int length = sizeof(arr)/sizeof(arr[0];
 //    printf("请输入1-10之间的数字");
 //    scanf("%d", &num);
 //    int ret = get_er(arr, num, length);
